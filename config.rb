@@ -20,6 +20,10 @@ set :js_dir, 'javascripts'
 set :images_dir, 'images'
 set :fonts_dir, 'fonts'
 
+# Set localization
+activate :i18n, :langs => [:en, :vi],
+:mount_at_root => :en
+
 # Activate the syntax highlighter
 activate :syntax
 ready do
