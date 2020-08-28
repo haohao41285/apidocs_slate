@@ -59,8 +59,7 @@ html, body {
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 15px;
 
   // language selector for mobile devices
   .lang-selector {
@@ -199,8 +198,7 @@ html, body {
 .toc-link, .toc-footer li {
   padding: 0 $nav-padding 0 $nav-padding;
   display: block;
-  overflow-x: hidden;
-  white-space: nowrap;
+  
   text-overflow: ellipsis;
   text-decoration: none;
   color: $nav-text;

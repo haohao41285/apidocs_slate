@@ -2,23 +2,25 @@
 title: Test API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+  - shell: cURL
+  - ruby: Ruby
+  - python: Python
+  - javascript: Javascript
+  - php: PHP
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
+  - "<span class='text-primary'>Address</span>: 8th floor, HBT Building, 456 Hai Ba Trung St., Tan Dinh Ward, Dist. 1, Ho Chi Minh City, Vietnam"
+  - "<span class='text-primary'>Supporter</span>: Mr. Minh, Do Sang"
+  - "<span class='text-primary'>Email</span>: minh.do@vietguys.biz"
+  - "<span class='text-primary'>Mobile</span>: 84-908176769"
+  - "<span class='text-primary'>Tel</span>: 84-8-7300 8027"
+  - "<span class='text-primary'>Skype</span>: dosangminh"
 
 search: true
 
 code_clipboard: true
 ---
-
+<% response_brand = t(:response_brand) || [] %>
 # <%= t(:menu_1) %>
 
 <p class="content_menu"><%= t(:menu_1_content_1) %></p>
@@ -27,14 +29,6 @@ code_clipboard: true
 
 # <%= t(:menu_2) %>
 ## <%= t(:menu_2_1) %>
-<%= t(:menu_2_1_content) %>
-
-### <%= t(:http_request) %>
-
-`POST <%= t(:http_import) %>`
-### <%= t(:query_parameter) %>
-
-
 
 > To authorize, use this code:
 
@@ -62,50 +56,44 @@ const kittn = require('kittn');
 let api = kittn.authorize('meowmeowmeow');
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> The above command returns CODE like this:
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+```text
+  <% response_brand.each do |res| %>
+  <%= res %>
+  <% end %>
+```
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+<%= t(:menu_2_1_content) %>
 
-`Authorization: meowmeowmeow`
+### <%= t(:http_request) %>
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+`POST <%= t(:menu_2_1_http) %>`
+### <%= t(:query_parameter) %>
+
+<%= t(:menu_2_1_params) %>
 
 
+<!-- ONE WAY -->
 ## <%= t(:menu_2_2) %>
-<%= t(:menu_2_2_content) %>
-<%= t(:http_request) %>
 
-Parameter | Default | Description
---------- | ------- | -----------
-access_token | false | Take it at profile.
-start_time | true | Default: Timing when campaign is initiated.
-end_time | true | Default: Current time
-
-
-# Kittens
-
-## Get All Kittens
+> To authorize, use this code:
 
 ```ruby
 require 'kittn'
 
 api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
 ```
 
 ```python
 import kittn
 
 api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
+# With shell, you can just pass the correct header with each request
+curl "api_endpoint_here"
   -H "Authorization: meowmeowmeow"
 ```
 
@@ -113,148 +101,301 @@ curl "http://example.com/api/kittens"
 const kittn = require('kittn');
 
 let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
 ```
 
-> The above command returns JSON structured like this:
+> The above command returns CODE or JSON like this:
+
+```text
+  -1: Missing required parameter(s)
+  -2: Server is busy, try again later
+  -3: SMS account is not found
+  -4: SMS account has been locked
+  -5: Authentication failed
+  -6: API has been disabled
+  -7: Access denied from this IP address
+  -8: Brandname hasn't been registered
+  -9: Out of credits
+  -10: Invalid mobile number
+  -11: Blacklist mobile number
+  -12: Out of credits
+  -13: Brandname hasn't been registered
+  -14: Characters exceed 459 characters (long message error).
+  -16: Duplicate mobile number, brandname, text message in 01
+  minutes
+  -18: Content contains advertising keywords
+  -17: Exceeds the limit of one-day limited-number messages defined by
+  the customer
+  -20: Template hasn't been registered
+  -21: The content of text message is not OTP
+  -22: MNP error or invalid brand name
+   ID: Successfully sent, return an unique ID 
+
+```
+> If returns JSON structured like this:
+```
+```
 
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "carrier":"mobifone",
+    "error":0,
+    "msgid":"995.84908176769.1ec857f40850f4b",
+    "log":"Gui thanh cong"
   }
 ]
 ```
+```text
+  error:  0 is successfully, 1 is error
+  msgid:  ID of the message
+  log:  Describe errors if any
+  carrier:  Network of current number
+```
 
-This endpoint retrieves all kittens.
+<%= t(:menu_2_2_content) %>
+###<%= t(:http_request) %>
 
-### HTTP Request
+### <%= t(:http_request) %>
 
-`GET http://example.com/api/kittens`
+With SSL(<b>recommended</b>): `GET/POST <%= t(:menu_2_2_http_ssl) %>`<br>
+Without SSL: `GET/POST <%= t(:menu_2_2_http_without_ssl) %>`
+### <%= t(:query_parameter) %>
 
-### Query Parameters
+<%= t(:menu_2_2_params) %>
+###<%= t(:menu_2_2_report) %>
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Mehthod: <%= t(:menu_2_2_report_method) %><br>
+<%= t(:menu_2_2_report_params) %>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<!-- END ONEWAY -->
+
+<!-- TWO WAY -->
+
+## <%= t(:menu_2_3) %>
+
+> To authorize, use this code:
+
+```ruby
+require 'kittn'
+
+api = Kittn::APIClient.authorize!('meowmeowmeow')
+```
+
+```python
+import kittn
+
+api = kittn.authorize('meowmeowmeow')
+```
+
+```shell
+# With shell, you can just pass the correct header with each request
+curl "api_endpoint_here"
+  -H "Authorization: meowmeowmeow"
+```
+
+```javascript
+const kittn = require('kittn');
+
+let api = kittn.authorize('meowmeowmeow');
+```
+
+> The above command returns CODE or JSON like this:
+
+```text
+  -1: Missing required parameter(s)
+  -2: Server is busy, try again later
+  -3: SMS account is not found
+  -4: SMS account has been locked
+  -5: Authentication failed
+  -6: API has been disabled
+  -7: Access denied from this IP address
+  -8: Brandname hasn't been registered
+  -9: Out of credits
+  -10: Invalid mobile number
+  -11: Blacklist mobile number
+  -12: Out of credits
+  -13: Brandname hasn't been registered
+  -14: Characters exceed 459 characters (long message error).
+  -16: Duplicate mobile number, brandname, text message in 01
+  minutes
+  -18: Content contains advertising keywords
+  -17: Exceeds the limit of one-day limited-number messages defined by
+  the customer
+  -20: Template hasn't been registered
+  -21: The content of text message is not OTP
+  -22: MNP error or invalid brand name
+   ID: Successfully sent, return an unique ID 
+
+```
+> If returns JSON structured like this:
+```
+```
+
+```json
+[
+  {
+    "carrier":"mobifone",
+    "error":0,
+    "msgid":"995.84908176769.1ec857f40850f4b",
+    "log":"Gui thanh cong"
+  }
+]
+```
+```text
+  error:  0 is successfully, 1 is error
+  msgid:  ID of the message
+  log:  Describe errors if any
+  carrier:  Network of current number
+```
+
+<%= t(:menu_2_3_content) %>
+###<%= t(:http_request) %>
+
+### <%= t(:http_request) %>
+
+With SSL(<b>recommended</b>): `GET/POST <%= t(:menu_2_3_http_ssl) %>`<br>
+Without SSL: `GET/POST <%= t(:menu_2_3_http_without_ssl) %>`
+### <%= t(:query_parameter) %>
+
+<%= t(:menu_2_3_params) %>
+###<%= t(:menu_2_3_report) %>
+
+Mehthod: <%= t(:menu_2_3_report_method) %><br>
+<%= t(:menu_2_3_report_params) %>
+
+<!-- END TWO WAY -->
+
+<!-- TopUp -->
+## <%= t(:menu_2_4) %>
+
+> To authorize, use this code:
+
+```ruby
+require 'kittn'
+
+api = Kittn::APIClient.authorize!('meowmeowmeow')
+```
+
+```python
+import kittn
+
+api = kittn.authorize('meowmeowmeow')
+```
+
+```shell
+# With shell, you can just pass the correct header with each request
+curl "api_endpoint_here"
+  -H "Authorization: meowmeowmeow"
+```
+
+```javascript
+const kittn = require('kittn');
+
+let api = kittn.authorize('meowmeowmeow');
+```
+
+> The above command returns CODE or JSON like this:
+
+```text
+  00: Successfully
+  01: Server Vietguys's busy
+  02: The input information has not been fully entered.
+  03: Account does not exist
+  04: Phone number is not correct
+  05: Account is locked.
+  06: Authentication information is not correct
+  07: Querying from undeclared IP address
+  08: Invalid topup denomination value.
+  09: Duplicate transaction code id (do not check default, must report IT settings)
+  10: Account topup credit end.
+```
+
+<%= t(:menu_2_4_content) %>
+
+### <%= t(:http_request) %>
+
+With SSL(<b>recommended</b>): `GET/POST <%= t(:menu_2_4_http_ssl) %>`<br>
+Without SSL: `GET/POST <%= t(:menu_2_4_http_without_ssl) %>`
+### <%= t(:query_parameter) %>
+
+<%= t(:menu_2_4_params) %>
+### <%= t(:menu_2_4_report) %>
+<%= t(:menu_2_4_report_params) %>
+
+<!-- End TopUp -->
+
+<!-- OTT -->
+## <%= t(:menu_2_5) %>
+
+> To authorize, use this code:
+
+```ruby
+require 'kittn'
+
+api = Kittn::APIClient.authorize!('meowmeowmeow')
+```
+
+```python
+import kittn
+
+api = kittn.authorize('meowmeowmeow')
+```
+
+```shell
+# With shell, you can just pass the correct header with each request
+curl "api_endpoint_here"
+  -H "Authorization: meowmeowmeow"
+```
+
+```javascript
+const kittn = require('kittn');
+
+let api = kittn.authorize('meowmeowmeow');
+```
+
+> The above command returns CODE or JSON like this:
+
+```text
+  -1: Not passed in full parameters
+  -3: The user account could not be found
+  -4: Account is locked
+  -7: Access restricted IP
+  -8: Brand name has not been declared
+  -10: Phone number is not correct
+```
+> If returns JSON structured like this:
+```
+```
+
+```json
+  [
+    {
+      "error":0,
+      "error_code":0,
+      "msgid":"9876543.1234567.37d7dd0c5ea6ccf",
+      "log":"Gui thanh cong"
+    }
+  ]
+```
+```text
+  error:  0 is successfully, 1 is error
+  msgid:  ID of the message
+  log:  Describe errors if any
+  carrier:  Network of current number
+```
+
+<%= t(:menu_2_5_content) %>
+
+### <%= t(:http_request) %>
+
+With SSL(<b>recommended</b>): `GET/POST <%= t(:menu_2_5_http_ssl) %>`<br>
+Without SSL: `GET/POST <%= t(:menu_2_5_http_without_ssl) %>`
+### <%= t(:query_parameter) %>
+
+<%= t(:menu_2_5_params) %>
+
+<aside class="warning">
+(*) Note with 03 parameters actiontext, actionlink, viberimg if using 03 simultaneous use or the system will return an error. 02 parameters actionlink, viberimg can run the FILTER_URL test function to return an error (if the path structure is wrong)
 </aside>
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+<!-- End TopUp -->
